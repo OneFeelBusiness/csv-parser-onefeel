@@ -26,7 +26,7 @@ function handleSubmit(event) {
   reader.onload = function () {
     console.log(reader.result);
   };
-}
+} 
 
 // let json
 // csv()
