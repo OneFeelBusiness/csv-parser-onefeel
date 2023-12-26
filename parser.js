@@ -1,4 +1,4 @@
-let csv = require("csvtojson");
+import csv from "csvtojson"
 
 let json
 csv()
