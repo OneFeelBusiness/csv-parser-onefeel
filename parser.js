@@ -19,10 +19,13 @@ form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
-  const csv = document.querySelector('#file').files;
+  const csv = document.querySelector('#file').files[0];
+  let reader = new FileReader();
+  reader.readAsText(csv);
 
-  console.log(csv)
-
+  reader.onload = function () {
+    console.log(reader.result);
+  };
 }
 
 // let json
