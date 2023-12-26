@@ -24,7 +24,8 @@ function handleSubmit(event) {
   reader.readAsText(csv);
 
   reader.onload = function () {
-    console.log(reader.result);
+    let jsonData = CSVToJSON(reader.result)
+    console.log(jsonData);
   };
 } 
 
