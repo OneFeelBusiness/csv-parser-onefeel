@@ -1,18 +1,29 @@
 
 
-const CSVToJSON = (data, delimiter = ',') => {
-  const titles = data.slice(0, data.indexOf('\n')).split(delimiter);
-  return data
-    .slice(data.indexOf('\n') + 1)
-    .split('\n')
-    .map(v => {
-      const values = v.split(delimiter);
-      return titles.reduce(
-        (obj, title, index) => ((obj[title] = values[index]), obj),
-        {}
-      );
-    });
-};
+function csvJSON(data) {
+
+  var lines = data.split("\n");
+
+  var result = [];
+
+  var headers = lines[0].split(",");
+
+  for (var i = 1; i < lines.length; i++) {
+
+    var obj = {};
+    var currentline = lines[i].split(",");
+
+    for (var j = 0; j < headers.length; j++) {
+      obj[headers[j]] = currentline[j];
+    }
+
+    result.push(obj);
+
+  }
+
+  //return result; //JavaScript object
+  return result; //JSON
+}
 
 const form = document.querySelector('form');
 form.addEventListener('submit', handleSubmit);
@@ -25,7 +36,7 @@ function handleSubmit(event) {
 
   reader.onload = function () {
     console.log(reader.result)
-    let jsonData = CSVToJSON(reader.result, ",")
+    let jsonData = csvJSON(reader.result)
     let jsonOutput = jsonData.map((item, i) => {
       return {
         "Handle": item.upc,
