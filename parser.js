@@ -1,4 +1,3 @@
-// import csv from "csvtojson"
 
 
 const CSVToJSON = (data, delimiter = ',') => {
