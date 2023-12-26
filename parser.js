@@ -19,7 +19,9 @@ form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
-  console.log(event) 
+  const csv = document.querySelector('#file').value;
+
+  console.log(csv)
 
 }
 
