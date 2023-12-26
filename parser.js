@@ -47,6 +47,7 @@ function handleSubmit(event) {
       }
     })
     console.log(jsonOutput);
+    console.log(jsonData);
   };
 }
 
