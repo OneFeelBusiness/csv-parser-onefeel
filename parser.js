@@ -25,33 +25,30 @@ function handleSubmit(event) {
 
   reader.onload = function () {
     let jsonData = CSVToJSON(reader.result)
-    console.log(jsonData);
+    let jsonOutput = jsonData.map((item, i) => {
+      return {
+        "Handle": item.upc,
+        "Title": item.title,
+        "Body (HTML)": item.description,
+        "Vendor": item.brand,
+        "Product Category": "",
+        "Type": item.category,
+        "Tags": "",
+        "Published": "FALSE",
+        "Variant Grams": item.weight ? parseInt(item.weight) * 453.592 : "",
+        "Variant Fulfillment Service": "manual",
+        "Variant Price": parseInt(item.wholesale_price) * 2,
+        "Variant Compare At Price": parseInt(item.wholesale_price) * 4,
+        "Variant Requires Shipping": "TRUE",
+        "Variant Taxable": "TRUE",
+        "Image Src": item.image_url,
+        "Variant Weight Unit": "g",
+        "Status": "draft"
+      }
+    })
+    console.log(jsonOutput);
   };
-} 
-
-// let json
-// csv()
-//   .fromFile("/Users/nikita/Documents/developing_projects/onefeel/sextoywholesale-products.csv")
-//   .then(function (jsonArrayObj) { //when parse finished, result will be emitted here.
-//     json = jsonArrayObj.map((item, i) => ({
-//       "Handle": item.upc,
-//       "Title": item.title,
-//       "Body (HTML)": item.description,
-//       "Vendor": item.brand,
-//       "Product Category": "",
-//       "Type": item.category,
-//       "Tags": "",
-//       "Published": "FALSE",
-//       "Variant Grams": item.weight ? parseInt(item.weight) * 453.592 : "",
-//       "Variant Fulfillment Service": "manual",
-//       "Variant Price": parseInt(item.wholesale_price) * 2,
-//       "Variant Compare At Price": parseInt(item.wholesale_price) * 4,
-//       "Variant Requires Shipping": "TRUE",
-//       "Variant Taxable": "TRUE",
-//       "Image Src": item.image_url,
-//       "Variant Weight Unit": "g",
-//       "Status": "draft"
-//     }))
+}
 
 //     let csvContent = jsonToCsv(json)
 
