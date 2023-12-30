@@ -1,29 +1,4 @@
-
-
-function csvJSON(data) {
-
-  var lines = data.split("\n");
-
-  var result = [];
-
-  var headers = lines[0].split(",");
-
-  for (var i = 1; i < lines.length; i++) {
-
-    var obj = {};
-    var currentline = lines[i].split(",");
-
-    for (var j = 0; j < headers.length; j++) {
-      obj[headers[j]] = currentline[j];
-    }
-
-    result.push(obj);
-
-  }
-
-  //return result; //JavaScript object
-  return result; //JSON
-}
+import Papa from "papaparse"
 
 const form = document.querySelector('form');
 form.addEventListener('submit', handleSubmit);
@@ -37,28 +12,29 @@ function handleSubmit(event) {
   reader.onload = function () {
     console.log(reader.result)
     let jsonData = csvJSON(reader.result)
-    let jsonOutput = jsonData.map((item, i) => {
-      return {
-        "Handle": item.upc,
-        "Title": item.title,
-        "Body (HTML)": item.description,
-        "Vendor": item.brand,
-        "Product Category": "",
-        "Type": item.category,
-        "Tags": "",
-        "Published": "FALSE",
-        "Variant Grams": item.weight ? parseFloat(item.weight) * 453.592 : "",
-        "Variant Fulfillment Service": "manual",
-        "Variant Price": parseFloat(item.wholesale_price) * 2,
-        "Variant Compare At Price": parseFloat(item.wholesale_price) * 4,
-        "Variant Requires Shipping": "TRUE",
-        "Variant Taxable": "TRUE",
-        "Image Src": item.image_url,
-        "Variant Weight Unit": "g",
-        "Status": "draft"
-      }
-    })
-    console.log(jsonOutput);
+    Papa.parse(reader.result, {header: "true"}).then(res => console.log(res))
+    // let jsonOutput = jsonData.map((item, i) => {
+    //   return {
+    //     "Handle": item.upc,
+    //     "Title": item.title,
+    //     "Body (HTML)": item.description,
+    //     "Vendor": item.brand,
+    //     "Product Category": "",
+    //     "Type": item.category,
+    //     "Tags": "",
+    //     "Published": "FALSE",
+    //     "Variant Grams": item.weight ? parseFloat(item.weight) * 453.592 : "",
+    //     "Variant Fulfillment Service": "manual",
+    //     "Variant Price": parseFloat(item.wholesale_price) * 2,
+    //     "Variant Compare At Price": parseFloat(item.wholesale_price) * 4,
+    //     "Variant Requires Shipping": "TRUE",
+    //     "Variant Taxable": "TRUE",
+    //     "Image Src": item.image_url,
+    //     "Variant Weight Unit": "g",
+    //     "Status": "draft"
+    //   }
+    // })
+    // console.log(jsonOutput);
     console.log(jsonData);
   };
 }
