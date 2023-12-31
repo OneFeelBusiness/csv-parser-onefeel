@@ -1,4 +1,4 @@
-import Papa from "./node_modules/papaparse/papaparse.js"
+const Papa = require("papaparse")
 
 const form = document.querySelector('form');
 form.addEventListener('submit', handleSubmit);
